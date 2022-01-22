@@ -7,6 +7,7 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = ">=3.7,<3.11"
+pytest = "^6.2.5"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
@@ -22,7 +23,7 @@ mypy = "^0.931"
 flake8 = "^4.0.1"
 
 [build-system]
-requires = ["poetry==1.1.12"]
+requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.isort]
