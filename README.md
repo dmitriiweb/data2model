@@ -1,2 +1,2 @@
 # data2model
-Python library and CLI tool for converting data to different Python data classes
+Python library and CLI tool for generating different Python data classes from data.
