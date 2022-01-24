@@ -7,17 +7,24 @@ from ._types import ClassData, ClassField
 
 class DataClassGenerator(BaseGenerator):
     def generate_file_content(self) -> str:
-        self.content.extend(
-            ["from dataclasses import dataclass", "from typing import Any, Dict\n\n"]
-        )
+        self.content.append("from dataclasses import dataclass")
+        self._add_typing_imports()
 
         for class_ in self.classes:
             self._add_class_content(class_)
 
         content = "\n".join(self.content)
-        content += "\n"
+        content += "\n\n"
         print(content)
         return content
+
+    def _add_typing_imports(self) -> None:
+        all_types = ["Dict", "Any"]
+        for class_ in self.classes:
+            all_types.extend(list(class_.get_types_for_import()))
+        import_types = sorted(list(all_types))
+        print(import_types)
+        self.content.append(f"from typing import {', '.join(import_types)}\n\n")
 
     def _add_class_content(self, class_: ClassData) -> None:
         self.content.append(f"@dataclass\nclass {class_.name}:")
@@ -45,7 +52,14 @@ class DataClassGenerator(BaseGenerator):
         self.content.append(f"        return cls({return_statements})")
 
     def _add_to_dict_method(self, class_: ClassData) -> None:
-        pass
+        self.content.append(f"\n    def to_dict(self) -> Dict[str, Any]:")
+        to_dict_template = '"{original_name}": self.{name}'
+        return_statements = ", ".join(
+            to_dict_template.format(original_name=i.original_name, name=i.name)
+            for i in class_.fields
+        )
+        return_statements = "        return {" + return_statements + "}"
+        self.content.append(return_statements)
 
     @staticmethod
     def generate_dict_getter(field: ClassField) -> str:

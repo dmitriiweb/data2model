@@ -10,3 +10,6 @@ class ClassField(Protocol):
 class ClassData(Protocol):
     name: str
     fields: List[ClassField]
+
+    def get_types_for_import(self) -> List[str]:
+        ...
