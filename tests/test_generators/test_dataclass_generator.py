@@ -21,7 +21,7 @@ class TestClass:
     def from_dict(cls, data: Dict[str, Any]) -> "TestClass":
         field1 = int(data["Field1"])
         field2 = float(data["Field2"])
-        field3 = bool(data["Field3"])
+        field3 = data["Field3"]
         field4 = str(data["Field4"])
         field5 = data["Field5"]
         return cls(field1=field1, field2=field2, field3=field3, field4=field4, field5=field5)
@@ -42,7 +42,7 @@ def test_generate_dict_getter(class_fields_simple: List[ClassField]):
     expected_outputs = [
         'field1 = int(data["Field1"])',
         'field2 = float(data["Field2"])',
-        'field3 = bool(data["Field3"])',
+        'field3 = data["Field3"]',
         'field4 = str(data["Field4"])',
         'field5 = data["Field5"]',
     ]

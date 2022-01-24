@@ -16,7 +16,7 @@ from data_to_model.type_detectors import SimpleTypeDetector, SimpleTypeNames
         ("1.0 ", SimpleTypeNames.FLOAT),
         (" 1.0 ", SimpleTypeNames.FLOAT),
         (" 1.0", SimpleTypeNames.FLOAT),
-        ("True", SimpleTypeNames.BOOLEAN),
+        ("True", SimpleTypeNames.STRING),
         ("", SimpleTypeNames.NONE),
     ],
 )

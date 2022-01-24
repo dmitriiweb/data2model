@@ -61,7 +61,7 @@ class DataClassGenerator(BaseGenerator):
 
     @staticmethod
     def generate_dict_getter(field: ClassField) -> str:
-        types = {"str", "int", "float", "bool"}
+        types = {"str", "int", "float"}
         if field.type not in types:
             return f'{field.name} = data["{field.original_name}"]'
 

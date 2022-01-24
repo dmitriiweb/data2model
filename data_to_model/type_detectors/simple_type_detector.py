@@ -35,9 +35,6 @@ class SimpleTypeDetector(BaseDetector):
         if value.isdigit():
             return SimpleTypeNames.INTEGER
 
-        if value == "True" or value == "False":
-            return SimpleTypeNames.BOOLEAN
-
         try:
             float(value)
             return SimpleTypeNames.FLOAT
