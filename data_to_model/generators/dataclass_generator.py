@@ -37,6 +37,12 @@ class DataClassGenerator(BaseGenerator):
         self.content.append(
             f'    def from_dict(cls, data: Dict[str, Any]) -> "{class_.name}":'
         )
+        for field in class_.fields:
+            getter = self.generate_dict_getter(field)
+            self.content.append(f"        {getter}")
+
+        return_statements = ", ".join([f"{i.name}={i.name}" for i in class_.fields])
+        self.content.append(f"        return cls({return_statements})")
 
     def _add_to_dict_method(self, class_: ClassData) -> None:
         pass

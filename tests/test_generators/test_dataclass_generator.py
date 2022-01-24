@@ -17,7 +17,7 @@ class TestClass:
     field2: float
     field3: bool
     field4: str
-    field4: List
+    field5: List
  
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> "TestClass":
@@ -26,7 +26,7 @@ class TestClass:
         field3 = bool(data["Field3"])
         field4 = str(data["Field4"])
         field5 = data["Field4"]
-        return cls(field1=field1, field2=field2, field3=field3, field4=field4)
+        return cls(field1=field1, field2=field2, field3=field3, field4=field4, field5=field5)
         
     def to_dict(self) -> Dict[str, Any]:
         return {"Field1": self.field1, "Field2": self.field2, "Field3": self.field3, "Field4": self.field4}
