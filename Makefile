@@ -1,9 +1,10 @@
-version := $(shell python -c 'from data2model import __version__; print(__version__)')
-
-
 .PHONY: test
 test:
 	pytest --cov=data_to_model -vv tests/
+	flake8 data_to_model tests/
+	mypy data_to_model
+	black data_to_model tests/
+	isort data_to_model tests/
 
 .PHONY: docs-serve
 docs-serve:
