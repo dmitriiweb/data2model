@@ -5,6 +5,6 @@ from data_to_model.models.class_field import ClassField
 
 
 @dataclass
-class DataClass:
+class ClassData:
     name: str
     fields: List[ClassField]

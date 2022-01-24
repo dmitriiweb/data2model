@@ -1,14 +1,10 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from ._types import ClassData, ClassField
+from ._types import ClassData
 
 
-class Generator(ABC):
-    """
-    Base class for data class generators
-    """
-
+class BaseGenerator(ABC):
     def __init__(self, classes: List[ClassData], file_name: str):
         self.classes = classes
         self.file_name = file_name
