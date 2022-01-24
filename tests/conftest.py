@@ -13,6 +13,7 @@ def class_fields() -> List[ClassField]:
         {"name": "field2", "type": "float", "original_name": "Field2"},
         {"name": "field3", "type": "bool", "original_name": "Field3"},
         {"name": "field4", "type": "str", "original_name": "Field4"},
+        {"name": "field5", "type": "List", "original_name": "Field4"},
     ]
     return [ClassField(**i) for i in fields_data]
 
