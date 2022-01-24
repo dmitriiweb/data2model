@@ -15,7 +15,6 @@ class DataClassGenerator(BaseGenerator):
 
         content = "\n".join(self.content)
         content += "\n\n"
-        print(content)
         return content
 
     def _add_typing_imports(self) -> None:
@@ -23,7 +22,6 @@ class DataClassGenerator(BaseGenerator):
         for class_ in self.classes:
             all_types.extend(list(class_.get_types_for_import()))
         import_types = sorted(list(all_types))
-        print(import_types)
         self.content.append(f"from typing import {', '.join(import_types)}\n\n")
 
     def _add_class_content(self, class_: ClassData) -> None:
