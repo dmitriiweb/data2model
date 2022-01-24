@@ -52,7 +52,7 @@ class DataClassGenerator(BaseGenerator):
         self.content.append(f"        return cls({return_statements})")
 
     def _add_to_dict_method(self, class_: ClassData) -> None:
-        self.content.append(f"\n    def to_dict(self) -> Dict[str, Any]:")
+        self.content.append("\n    def to_dict(self) -> Dict[str, Any]:")
         to_dict_template = '"{original_name}": self.{name}'
         return_statements = ", ".join(
             to_dict_template.format(original_name=i.original_name, name=i.name)

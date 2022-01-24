@@ -1,4 +1,3 @@
-from dataclasses import dataclass
 from typing import List, Set
 
 from data_to_model.models.class_field import ClassField

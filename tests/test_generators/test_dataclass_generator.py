@@ -1,7 +1,5 @@
 from typing import List
 
-import pytest
-
 from data_to_model.generators.dataclass_generator import DataClassGenerator
 from data_to_model.models import ClassData, ClassField
 
