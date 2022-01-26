@@ -1,4 +1,4 @@
-from data_to_model.type_detectors._types import DataType
+from data_to_model.type_detectors._types import SimpleType
 from data_to_model.type_detectors.base_detector import BaseDetector
 
 
@@ -11,7 +11,7 @@ class SimpleTypeNames:
 
 
 class SimpleTypeDetector(BaseDetector):
-    def detect_type(self, value: DataType) -> str:
+    def detect_type(self, value: SimpleType) -> str:
 
         if isinstance(value, bool):
             return SimpleTypeNames.BOOLEAN
