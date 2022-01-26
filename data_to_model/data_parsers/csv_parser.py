@@ -42,7 +42,17 @@ class CsvDataParser(DataParser):
     def from_collection(
         self, collection: Collection, root_class_name: str
     ) -> List[ClassData]:
-        pass
+        all_types = defaultdict(set)
+        type_detector = TypeDetector()
+        for row in collection:
+            for k, v in row.items():
+                detected_type = type_detector.from_value(v)
+                all_types[k].add(detected_type)
+
+        types = {k: TypeDetector.from_set(v) for k, v in all_types.items()}
+        fields = [ClassField(original_name=k, type=v) for k, v in types.items()]
+
+        return [ClassData(root_class_name, fields)]
 
     @staticmethod
     async def read_csv(
