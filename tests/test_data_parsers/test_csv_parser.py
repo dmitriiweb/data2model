@@ -5,7 +5,6 @@ import pytest
 from data_to_model.data_parsers import CsvDataParser
 
 
-@pytest.mark.skip("Need to finish method")
 async def test_from_file(csv_test_file: pathlib.Path):
     parser = CsvDataParser()
     data_classes = await parser.from_file(csv_test_file)
@@ -19,7 +18,7 @@ async def test_from_file(csv_test_file: pathlib.Path):
         elif field.name == "col2":
             assert field.type == "Optional[float]"
         elif field.name == "col3":
-            assert field.type == "Union[str, float]"
+            assert field.type == "Union[float, str]"
 
 
 async def test_from_collection():
