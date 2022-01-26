@@ -8,15 +8,10 @@ import aiofiles
 from aiocsv import AsyncDictReader
 from data_to_model.data_parsers.data_parser import DataParser
 from data_to_model.models import ClassData, ClassField
+from data_to_model.name_formatters import CamelCaseFormatter
 from data_to_model.type_detectors import TypeDetector
 
 from .types import Collection
-
-
-class NameFormatter:
-    """format from any to camel case"""
-
-    pass
 
 
 class CsvDataParser(DataParser):
@@ -38,9 +33,11 @@ class CsvDataParser(DataParser):
         types = {k: TypeDetector.from_set(v) for k, v in all_types.items()}
         fields = [ClassField(original_name=k, type=v) for k, v in types.items()]
 
-        classname = "Example"
+        if root_class_name is None:
+            name_formatter = CamelCaseFormatter(file_path.stem)
+            root_class_name = name_formatter.format()
 
-        return [ClassData(classname, fields)]
+        return [ClassData(root_class_name, fields)]
 
     def from_collection(
         self, collection: Collection, root_class_name: str
