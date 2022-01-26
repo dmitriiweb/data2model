@@ -1,9 +1,11 @@
 import pathlib
+
 from typing import List
 
 import pytest
 
 from data_to_model.models import ClassData, ClassField
+
 
 DATA_FILES = pathlib.Path(__file__).parent / "data_files"
 

@@ -11,7 +11,7 @@ from .types import Collection
 class DataParser(ABC):
     @abstractmethod
     async def from_file(
-        self, file_path: pathlib.Path, root_class_name: Optional[str] = None
+        self, file_path: pathlib.Path, root_class_name: Optional[str] = None, **kwargs
     ) -> List[ClassData]:
         pass
 
