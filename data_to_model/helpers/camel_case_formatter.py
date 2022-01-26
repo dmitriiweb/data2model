@@ -1,2 +1,0 @@
-class CamelCaseFormatter:
-    pass

@@ -1,20 +1,10 @@
-from typing import List
+from .name_formatter import NameFormatter
 
 
-class SnakeCaseFormatter:
+class SnakeCaseFormatter(NameFormatter):
     """Convert from any to snake"""
 
-    def __init__(self, original_name: str):
-        self.original_name = original_name
-        self.formatted_chars: List[str] = []
-
-    def format(self) -> str:
-        for idx, current_char in enumerate(self.original_name):
-            self._format_current_char(current_char, idx)
-
-        return "".join(self.formatted_chars)
-
-    def _format_current_char(self, current_char: str, idx: int) -> None:
+    def format_current_char(self, current_char: str, idx: int) -> None:
         if not current_char.isalpha() and not current_char.isdigit():
             self.formatted_chars.append("_")
 
@@ -28,8 +18,8 @@ class SnakeCaseFormatter:
             self.formatted_chars.append(current_char)
 
     def _format_upper(self, upper: str, idx: int) -> str:
-        prev_char = self._get_char_by_idx(idx - 1)
-        next_char = self._get_char_by_idx(idx + 1)
+        prev_char = self.get_char_by_idx(idx - 1)
+        next_char = self.get_char_by_idx(idx + 1)
 
         if idx == 0 or idx == len(self.original_name) - 1:
             return upper.lower()
@@ -41,11 +31,3 @@ class SnakeCaseFormatter:
             return f"_{upper.lower()}"
 
         return upper.lower()
-
-    def _get_char_by_idx(self, idx: int) -> str:
-        if idx < 0:
-            return ""
-        try:
-            return self.original_name[idx]
-        except IndexError:
-            return ""

@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from data_to_model.helpers import SnakeCaseFormatter
+from data_to_model.name_formatters import SnakeCaseFormatter
 
 
 @dataclass()
