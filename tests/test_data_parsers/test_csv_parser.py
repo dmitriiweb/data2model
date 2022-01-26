@@ -1,7 +1,5 @@
 import pathlib
 
-import pytest
-
 from data_to_model.data_parsers import CsvDataParser
 
 

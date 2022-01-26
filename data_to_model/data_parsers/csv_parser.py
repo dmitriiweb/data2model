@@ -13,6 +13,12 @@ from data_to_model.type_detectors import TypeDetector
 from .types import Collection
 
 
+class NameFormatter:
+    """format from any to camel case"""
+
+    pass
+
+
 class CsvDataParser(DataParser):
     async def from_file(
         self,
