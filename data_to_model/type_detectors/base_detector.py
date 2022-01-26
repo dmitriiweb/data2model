@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from data_to_model.type_detectors._types import SimpleType
+from .types import SimpleType
 
 
 class BaseDetector(ABC):

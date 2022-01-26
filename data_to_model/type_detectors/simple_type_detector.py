@@ -1,5 +1,6 @@
-from data_to_model.type_detectors._types import SimpleType
 from data_to_model.type_detectors.base_detector import BaseDetector
+
+from .types import SimpleType
 
 
 class SimpleTypeNames:

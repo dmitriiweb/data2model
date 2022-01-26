@@ -1,8 +1,16 @@
+import pathlib
 from typing import List
 
 import pytest
 
 from data_to_model.models import ClassData, ClassField
+
+DATA_FILES = pathlib.Path(__file__).parent / "data_files"
+
+
+@pytest.fixture()
+def csv_test_file() -> pathlib.Path:
+    return DATA_FILES / "example.csv"
 
 
 @pytest.fixture()
