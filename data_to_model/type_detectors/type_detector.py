@@ -1,5 +1,3 @@
-from data_to_model.type_detectors.base_detector import BaseDetector
-
 from .types import SimpleType
 
 
@@ -11,8 +9,8 @@ class SimpleTypeNames:
     NONE = "NoneType"
 
 
-class SimpleTypeDetector(BaseDetector):
-    def detect_type(self, value: SimpleType) -> str:
+class TypeDetector:
+    def from_value(self, value: SimpleType) -> str:
 
         if isinstance(value, bool):
             return SimpleTypeNames.BOOLEAN

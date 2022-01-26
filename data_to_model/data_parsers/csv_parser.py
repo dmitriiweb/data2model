@@ -8,7 +8,7 @@ import aiofiles
 from aiocsv import AsyncDictReader
 from data_to_model.data_parsers.data_parser import DataParser
 from data_to_model.models import ClassData
-from data_to_model.type_detectors import SimpleTypeDetector
+from data_to_model.type_detectors import TypeDetector
 
 from .types import Collection
 
@@ -23,10 +23,10 @@ class CsvDataParser(DataParser):
         delimiter = kwargs.get("delimiter", ",")
         all_types = defaultdict(set)
 
-        type_detector = SimpleTypeDetector()
+        type_detector = TypeDetector()
         async for row in self.read_csv(file_path, delimiter):
             for k, v in row.items():
-                detected_type = type_detector.detect_type(v)
+                detected_type = type_detector.from_value(v)
                 all_types[k].add(detected_type)
 
         return []

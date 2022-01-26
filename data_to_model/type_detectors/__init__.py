@@ -1,1 +1,1 @@
-from .simple_type_detector import SimpleTypeDetector, SimpleTypeNames
+from .type_detector import SimpleTypeNames, TypeDetector

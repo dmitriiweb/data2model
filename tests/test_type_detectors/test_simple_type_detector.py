@@ -1,6 +1,6 @@
 import pytest
 
-from data_to_model.type_detectors import SimpleTypeDetector, SimpleTypeNames
+from data_to_model.type_detectors import SimpleTypeNames, TypeDetector
 
 
 @pytest.mark.parametrize(
@@ -21,14 +21,14 @@ from data_to_model.type_detectors import SimpleTypeDetector, SimpleTypeNames
     ],
 )
 def test_simple_type_detector(value, expected_type):
-    type_detector = SimpleTypeDetector()
-    assert type_detector.detect_type(value) == expected_type
+    type_detector = TypeDetector()
+    assert type_detector.from_value(value) == expected_type
 
 
 def test_simple_type_detector_error():
-    type_detector = SimpleTypeDetector()
+    type_detector = TypeDetector()
     value = [1, 2, 3]
     with pytest.raises(TypeError) as error:
-        type_detector.detect_type(value)
+        type_detector.from_value(value)
 
     assert "SimpleType" in str(error.value)
