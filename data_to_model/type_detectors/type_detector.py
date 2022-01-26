@@ -25,12 +25,12 @@ class TypeDetector:
             return SimpleTypeNames.FLOAT
 
         if isinstance(value, str):
-            return self.detect_from_string(value)
+            return self.from_string(value)
 
         raise TypeError(f"Expected SimpleType, got {type(value)}")
 
     @staticmethod
-    def detect_from_string(value: str) -> str:
+    def from_string(value: str) -> str:
         if value.isdigit():
             return SimpleTypeNames.INTEGER
 

@@ -32,3 +32,21 @@ def test_simple_type_detector_error():
         type_detector.from_value(value)
 
     assert "SimpleType" in str(error.value)
+
+
+@pytest.mark.parametrize(
+    "types, expected_type",
+    [
+        ({SimpleTypeNames.INTEGER}, "int"),
+        ({SimpleTypeNames.INTEGER, SimpleTypeNames.FLOAT}, "Union[float, int]"),
+        ({SimpleTypeNames.NONE}, "Optional"),
+        ({SimpleTypeNames.NONE, SimpleTypeNames.INTEGER}, "Optional[int]"),
+        (
+            {SimpleTypeNames.NONE, SimpleTypeNames.INTEGER, SimpleTypeNames.FLOAT},
+            "Optional[Union[float, int]]",
+        ),
+    ],
+)
+def test_from_dict(types, expected_type):
+    type_detector = TypeDetector()
+    assert type_detector.from_set(types) == expected_type
