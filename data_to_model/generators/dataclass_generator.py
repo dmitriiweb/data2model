@@ -2,7 +2,7 @@ from typing import List
 
 from data_to_model.generators.base_generator import BaseGenerator
 
-from ._types import ClassData, ClassField
+from .types import ClassData, ClassField
 
 
 class DataClassGenerator(BaseGenerator):

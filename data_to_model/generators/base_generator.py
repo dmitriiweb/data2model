@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from ._types import ClassData
+from .types import ClassData
 
 
 class BaseGenerator(ABC):
