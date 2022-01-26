@@ -1,7 +1,7 @@
 import pathlib
 
 from collections import defaultdict
-from typing import AsyncGenerator, Dict, List, Optional
+from typing import AsyncGenerator, Dict, List, Optional, Set
 
 import aiofiles
 
@@ -30,8 +30,7 @@ class CsvDataParser(DataParser):
                 detected_type = type_detector.from_value(v)
                 all_types[k].add(detected_type)
 
-        types = {k: TypeDetector.from_set(v) for k, v in all_types.items()}
-        fields = [ClassField(original_name=k, type=v) for k, v in types.items()]
+        fields = self.get_fields_from_types(all_types)
 
         if root_class_name is None:
             name_formatter = CamelCaseFormatter(file_path.stem)
@@ -49,10 +48,15 @@ class CsvDataParser(DataParser):
                 detected_type = type_detector.from_value(v)
                 all_types[k].add(detected_type)
 
-        types = {k: TypeDetector.from_set(v) for k, v in all_types.items()}
-        fields = [ClassField(original_name=k, type=v) for k, v in types.items()]
+        fields = self.get_fields_from_types(all_types)
 
         return [ClassData(root_class_name, fields)]
+
+    @staticmethod
+    def get_fields_from_types(all_types: Dict[str, Set[str]]) -> List[ClassField]:
+        types = {k: TypeDetector.from_set(v) for k, v in all_types.items()}
+        fields = [ClassField(original_name=k, type=v) for k, v in types.items()]
+        return fields
 
     @staticmethod
     async def read_csv(
