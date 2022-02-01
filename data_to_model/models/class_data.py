@@ -10,6 +10,10 @@ class ClassData:
         self.name = name
         self.fields = fields
 
+    def __repr__(self) -> str:
+        field_names = [field.name for field in self.fields]
+        return f"ClassData(name={self.name}, fields={field_names})"
+
     def get_types_for_import(self) -> Set[str]:
         all_types = self.get_all_types()
         types_for_import = set()

@@ -1,10 +1,10 @@
 import pytest
 
-from data_to_model.models import ClassField
+from data_to_model.name_formatters import SnakeCaseFormatter
 
 
 @pytest.mark.parametrize(
-    "original_name, expected_name",
+    "input_string, expected_output",
     [
         ("name", "name"),
         ("Name", "name"),
@@ -19,6 +19,6 @@ from data_to_model.models import ClassField
         ("name45", "name45"),
     ],
 )
-def test_name(original_name, expected_name):
-    class_field = ClassField(original_name=original_name, type="")
-    assert class_field.name == expected_name
+def test_name(input_string, expected_output):
+    formatter = SnakeCaseFormatter(input_string)
+    assert formatter.format() == expected_output

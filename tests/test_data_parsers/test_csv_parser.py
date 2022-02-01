@@ -16,7 +16,7 @@ async def test_from_file(csv_test_file: pathlib.Path):
         elif field.name == "col2":
             assert field.type == "Optional[float]"
         elif field.name == "col3":
-            assert field.type == "Union[float, str]"
+            assert field.type == "str"
 
 
 async def test_from_collection(csv_test_file: pathlib.Path):
@@ -36,4 +36,4 @@ async def test_from_collection(csv_test_file: pathlib.Path):
         elif field.name == "col2":
             assert field.type == "Optional[float]"
         elif field.name == "col3":
-            assert field.type == "Union[float, str]"
+            assert field.type == "str"

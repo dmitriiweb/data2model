@@ -1,12 +1,13 @@
 from typing import List
 
 from data_to_model.generators.base_generator import BaseGenerator
+from data_to_model.models.data_class_model import DataClassModel
 
 from .types import ClassData, ClassField
 
 
 class DataClassGenerator(BaseGenerator):
-    def generate_file_content(self) -> str:
+    def generate_file_content(self) -> DataClassModel:
         self.content.append("from dataclasses import dataclass")
         self._add_typing_imports()
 
@@ -15,7 +16,7 @@ class DataClassGenerator(BaseGenerator):
 
         content = "\n".join(self.content)
         content += "\n\n"
-        return content
+        return DataClassModel(content)
 
     def _add_typing_imports(self) -> None:
         all_types = ["Dict", "Any"]

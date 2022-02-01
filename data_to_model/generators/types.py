@@ -1,4 +1,9 @@
+from enum import Enum, auto
 from typing import List, Protocol
+
+
+class SupportedDataClasses(Enum):
+    PythonDataClass = auto()
 
 
 class ClassField(Protocol):

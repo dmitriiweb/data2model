@@ -62,6 +62,7 @@ class CsvDataParser(DataParser):
     async def read_csv(
         file_path: pathlib.Path, delimiter: str = ","
     ) -> AsyncGenerator[Dict[str, str], None]:
+        delimiter = "," if delimiter is None else delimiter
         async with aiofiles.open(
             file_path, mode="r", encoding="utf-8", newline=""
         ) as f:
