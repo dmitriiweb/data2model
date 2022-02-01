@@ -1,9 +1,16 @@
 # data2model
-Python library and CLI tool (in the nearest future) for generating different Python data classes from data.
 
 ![kdpv](https://github.com/dmitriiweb/data2model/raw/pre_production/imgs/matrix-g69866a888_640.jpg)
 
 ![Tests](https://github.com/mCodingLLC/SlapThatLikeButton-TestingStarterProject/actions/workflows/tests.yml/badge.svg)
+
+Python library and CLI tool (in the nearest future) for generating different Python data classes from data.
+
+Supported data formats:
+- CSV
+
+Supported data classes:
+- [dataclasses](https://docs.python.org/3.8/library/dataclasses.html)
 
 ## Requirements
 
