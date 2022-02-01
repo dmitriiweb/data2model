@@ -1,8 +1,9 @@
 # data2model
 
-![kdpv](https://github.com/dmitriiweb/data2model/raw/pre_production/imgs/matrix-g69866a888_640.jpg)
+![kdpv](https://github.com/dmitriiweb/data2model/raw/main/imgs/matrix-g69866a888_640.jpg)
 
 ![Tests](https://github.com/mCodingLLC/SlapThatLikeButton-TestingStarterProject/actions/workflows/tests.yml/badge.svg)
+[![PyPI version](https://badge.fury.io/py/data2model.svg)](https://badge.fury.io/py/data2model)
 
 Python library and CLI tool (in the nearest future) for generating different Python data classes from data.
 
@@ -48,4 +49,4 @@ async def main():
 if __name__ == "__main__":
     asyncio.run(main())
 ```
-![output](https://github.com/dmitriiweb/data2model/raw/pre_production/imgs/carbon.png)
+![output](https://github.com/dmitriiweb/data2model/raw/main/imgs/carbon.png)
