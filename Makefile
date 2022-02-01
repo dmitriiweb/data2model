@@ -2,7 +2,7 @@
 test:
 	pytest --cov=data_to_model -vv tests/
 	flake8 data_to_model tests/
-	mypy data_to_model
+	mypy data_to_model --implicit-reexport
 	black data_to_model tests/
 	isort data_to_model tests/
 
