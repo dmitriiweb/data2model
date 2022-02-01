@@ -19,7 +19,7 @@ class ModelGenerator:
         self,
         data: Data,
         *,
-        py_dataclass_type: SupportedDataClasses,
+        py_dataclass_type: SupportedDataClasses = SupportedDataClasses.PythonDataClass,
         data_type: Optional[SupportedDataTypes] = None,
         root_class_name: Optional[str] = None,
         csv_delimiter: Optional[str] = None,
@@ -41,6 +41,10 @@ class ModelGenerator:
         if is_path:
             data = await data_parser.from_file(self.data, delimiter=self.csv_delimiter)  # type: ignore
         else:
+            if self.root_class_name is None:
+                raise ValueError(
+                    "root_class_name must be specified if data is not a path"
+                )
             data = data_parser.from_collection(self.data, self.root_class_name)  # type: ignore
         return data
 
@@ -49,6 +53,8 @@ class ModelGenerator:
         return dc_generator.generate_file_content()
 
     def _get_data_parser(self) -> DataParser:
+        if not isinstance(self.data, pathlib.Path) and self.data_type is None:
+            raise ValueError("data_type must be specified if data is not a path")
         return (
             DataParserFactory.get_parser(self.data)  # type: ignore
             if self.data_type is None

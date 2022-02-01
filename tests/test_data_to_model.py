@@ -3,6 +3,7 @@ import pathlib
 import pytest
 
 from data_to_model import ModelGenerator
+from data_to_model.data_parsers.types import SupportedDataTypes
 from data_to_model.generators.types import SupportedDataClasses
 
 import tests.utils as utils
@@ -53,3 +54,19 @@ async def test_model_generator_from_csv(
         res.content = res.content.replace("ExampleTabs", "Example")
 
     assert res.content.strip() == output_text
+
+
+async def test_model_generator_from_collection():
+    input_data = await utils.read_csv(csv1)
+    g = ModelGenerator(
+        input_data,
+        py_dataclass_type=SupportedDataClasses.PythonDataClass,
+        data_type=SupportedDataTypes.CSV,
+        root_class_name="Example",
+    )
+    output_text = await utils.read_file(output)
+    output_text = output_text.strip()
+
+    model = await g.get_model()
+
+    assert model.content.strip() == output_text
