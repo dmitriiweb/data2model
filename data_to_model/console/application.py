@@ -5,14 +5,28 @@ data2model -if data.csv -of data.py
 """
 import asyncio  # noqa
 
+from functools import wraps
 from pathlib import Path
 
-import asyncclick as click
+import click
 
 from data_to_model import ModelGenerator
 
 
-@click.command()
+def coro(f):
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        return asyncio.run(f(*args, **kwargs))
+
+    return wrapper
+
+
+@click.group()
+def cli():
+    pass
+
+
+@click.command("file")
 @click.option(
     "-if", "--input-file", type=str, required=True, help="Input file, e.g. data.csv"
 )
@@ -26,7 +40,8 @@ from data_to_model import ModelGenerator
     help="Delimiter in CSV files, default coma(',')",
     default=",",
 )
-async def model_generator(input_file: str, output_file: str, csv_delimiter: str):
+@coro
+async def from_file(input_file: str, output_file: str, csv_delimiter: str):
     input_path = Path(input_file)
     output_path = Path(output_file)
 
@@ -35,8 +50,21 @@ async def model_generator(input_file: str, output_file: str, csv_delimiter: str)
     await model.save(output_path)
 
 
+@click.command("folder")
+@click.option(
+    "-if", "--input-folder", type=str, required=True, help="Folder with data files"
+)
+@coro
+async def from_folder(input_folder: str):
+    print(input_folder)
+
+
 def main():
-    model_generator(_anyio_backend="asyncio")
+    # from_file(_anyio_backend="asyncio")
+    # from_folder(_anyio_backend="asyncio")
+    cli.add_command(from_file)
+    cli.add_command(from_folder)
+    cli()
 
 
 if __name__ == "__main__":
