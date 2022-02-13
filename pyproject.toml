@@ -25,6 +25,8 @@ classifiers = [
 python = ">=3.8,<3.11"
 aiofiles = "^0.8.0"
 aiocsv = "^1.2.1"
+asyncclick = "^8.0.3"
+anyio = "^3.5.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
