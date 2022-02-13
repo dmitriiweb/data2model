@@ -1,7 +1,7 @@
 # Changelog
 
 ## v 0.2.1b
-## Added
+### Added
 - [x] CLI for generating models from a folder with data files
    
 
