@@ -1,5 +1,9 @@
 # Changelog
 
+## v 0.2.0b
+### Added
+ - [x] CLI tool
+
 ## v 0.1.1b
 ### Changed
 - [x] Updated documentation
