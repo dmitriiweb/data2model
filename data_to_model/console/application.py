@@ -44,10 +44,7 @@ def cli():
 async def from_file(input_file: str, output_file: str, csv_delimiter: str):
     input_path = Path(input_file)
     output_path = Path(output_file)
-
-    mg = ModelGenerator(input_path, csv_delimiter=csv_delimiter)
-    model = await mg.get_model()
-    await model.save(output_path)
+    await model_generator(input_path, output_path, csv_delimiter)
 
 
 @click.command("folder", short_help="Generate models from files from a folder")
@@ -55,9 +52,41 @@ async def from_file(input_file: str, output_file: str, csv_delimiter: str):
     "-if", "--input-folder", type=str, required=True, help="Folder with data files"
 )
 @click.option("-of", "--output-folder", type=str, required=True, help="Output folder")
+@click.option(
+    "--csv-delimiter",
+    type=str,
+    required=False,
+    help="Delimiter in CSV files, default coma(',')",
+    default=",",
+)
 @coro
-async def from_folder(input_folder: str, output_folder: str):
-    print(input_folder)
+async def from_folder(input_folder: str, output_folder: str, csv_delimiter: str):
+    allowed_file_formats = {".csv", ".tsv", ".txt"}
+    input_path = Path(input_folder)
+    output_path = Path(output_folder)
+
+    input_files = [
+        i
+        for i in input_path.iterdir()
+        if i.is_file() and i.suffix in allowed_file_formats
+    ]
+    output_files = [output_path.joinpath(f"{i.stem}.py") for i in input_files]
+
+    output_path.mkdir(exist_ok=True, parents=True)
+
+    tasks = [
+        model_generator(i, o, csv_delimiter=csv_delimiter)
+        for i, o in zip(input_files, output_files)
+    ]
+    await asyncio.gather(*tasks)
+
+
+async def model_generator(
+    input_path: Path, output_path: Path, csv_delimiter: str = ","
+):
+    mg = ModelGenerator(input_path, csv_delimiter=csv_delimiter)
+    model = await mg.get_model()
+    await model.save(output_path)
 
 
 def main():
