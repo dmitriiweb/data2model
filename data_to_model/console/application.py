@@ -21,12 +21,12 @@ def coro(f):
     return wrapper
 
 
-@click.group()
+@click.group(help="Generate models from data files")
 def cli():
     pass
 
 
-@click.command("file")
+@click.command("file", short_help="Generate model from a single file")
 @click.option(
     "-if", "--input-file", type=str, required=True, help="Input file, e.g. data.csv"
 )
@@ -50,18 +50,17 @@ async def from_file(input_file: str, output_file: str, csv_delimiter: str):
     await model.save(output_path)
 
 
-@click.command("folder")
+@click.command("folder", short_help="Generate models from files from a folder")
 @click.option(
     "-if", "--input-folder", type=str, required=True, help="Folder with data files"
 )
+@click.option("-of", "--output-folder", type=str, required=True, help="Output folder")
 @coro
-async def from_folder(input_folder: str):
+async def from_folder(input_folder: str, output_folder: str):
     print(input_folder)
 
 
 def main():
-    # from_file(_anyio_backend="asyncio")
-    # from_folder(_anyio_backend="asyncio")
     cli.add_command(from_file)
     cli.add_command(from_folder)
     cli()
